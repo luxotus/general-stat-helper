@@ -20,20 +20,21 @@ const generalStatHelper = {
    * @param {array} arr
    */
   permutations: (arr) => {
-    const ret = [];
+    const result = [];
 
     for (let i = 0; i < arr.length; i += 1) {
-      const rest = generalStatHelper.permutations(arr.slice(0, i).concat(arr.slice(i + 1)));
+      const permGroup = generalStatHelper.permutations(arr.slice(0, i).concat(arr.slice(i + 1)));
 
-      if (!rest.length) {
-        ret.push([arr[i]]);
+      if (permGroup.length === 0) {
+        result.push([arr[i]]);
       } else {
-        for (let j = 0; j < rest.length; j += 1) {
-          ret.push([arr[i]].concat(rest[j]));
+        for (let j = 0; j < permGroup.length; j += 1) {
+          result.push([arr[i]].concat(permGroup[j]));
         }
       }
     }
-    return ret;
+
+    return result;
   },
   combination: () => {},
   binomialCoefficient: () => {},
