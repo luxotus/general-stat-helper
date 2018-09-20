@@ -1,8 +1,6 @@
 import assert from 'assert';
 import generalStatHelper from '../src/general-stat-helper';
 
-console.log(generalStatHelper.permutations(['a', 'b', 'c']));
-
 /**
  * Checks nested arrays for duplicate arrays, data order is ignored
  * @param {[[...], [...], ...]} arr
@@ -56,6 +54,11 @@ describe('generalStatHelper', function() {
 
     it('Contains no duplicates', function() {
       assert.equal(checkForNestedDuplicates(generalStatHelper.permutations(arr)), false);
+    });
+  });
+  describe('combination', function() {
+    it('4 chosen from group of 15 has 1365 possible combinations', function() {
+      assert.equal(generalStatHelper.combination(15, 4), 1365);
     });
   });
 });

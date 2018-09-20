@@ -36,7 +36,18 @@ const generalStatHelper = {
 
     return result;
   },
-  combination: () => {},
+
+  /**
+   * Get the number possible combinations from a group within a set
+   * @param {int} n number of permutations
+   * @param {int} r number of objects
+   */
+  combination: (n, r) => {
+    const nPr = generalStatHelper.factorial(n);
+    const denominator = generalStatHelper.factorial(r) * generalStatHelper.factorial(n - r);
+
+    return nPr / denominator;
+  },
   binomialCoefficient: () => {},
 };
 
