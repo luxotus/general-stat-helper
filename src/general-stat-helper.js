@@ -48,7 +48,6 @@ const generalStatHelper = {
 
     return nPr / denominator;
   },
-  binomialCoefficient: () => {},
 };
 
 export default generalStatHelper;
