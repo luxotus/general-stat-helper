@@ -10,7 +10,7 @@ module.exports = [
   },
   {
     entry: {
-      generalStat: './test/general-stat-helper.test.js',
+      tests: ['./test/general-stat-helper.test.js', './test/random-generator.test.js'],
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
