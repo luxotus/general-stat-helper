@@ -48,6 +48,37 @@ const generalStatHelper = {
 
     return nPr / denominator;
   },
+
+  /**
+   * Calculate the average from an array of numbers
+   * @param {[int]} arr array of numbers
+   */
+  mean: arr => arr.reduce((p, c) => p + c) / arr.length,
+
+  /**
+   * The average of the squared differences from the Mean.
+   * @param {[int]} arr array of numbers
+   */
+  variance: (arr) => {},
+
+  /**
+   * The Standard Deviation
+   * @param {[int]} v variance
+   */
+  sigma: (v) => {},
+
+  /**
+   * The set of elements that belong to all sets
+   * @param {[[int], [int]...]} s array of all the sets you want to get the intersection of
+   */
+  intersection: (s) => {},
+
+  /**
+   * The set of elements that belong to one or both sets
+   * @param {[[int], [int]...]} sets array of all the sets you want to get the union of
+   */
+  union: (s) => {},
+
 };
 
 export default generalStatHelper;

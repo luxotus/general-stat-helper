@@ -61,4 +61,11 @@ describe('generalStatHelper', function() {
       assert.equal(generalStatHelper.combination(15, 4), 1365);
     });
   });
+  describe('mean', function() {
+    const arr = [600, 470, 170, 430, 300];
+    const knownMean = 394;
+    it(`[${arr.join(', ')}] has a mean of ${knownMean}`, function() {
+      assert.equal(generalStatHelper.mean(arr), knownMean);
+    });
+  });
 });
