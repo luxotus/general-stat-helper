@@ -76,7 +76,21 @@ const generalStatHelper = {
    * The set of elements that belong to all sets
    * @param {[[int], [int]...]} s array of all the sets you want to get the intersection of
    */
-  intersection: (s) => {},
+  intersection: (s) => {
+    let andSet = [];
+
+    if (s.length >= 2) {
+      andSet = s[0].filter(value => s[1].indexOf(value) !== -1);
+
+      if (s.length > 2) {
+        s.splice(1, s.length).forEach((el) => {
+          andSet = andSet.filter(value => el.indexOf(value) !== -1);
+        });
+      }
+    }
+
+    return andSet;
+  },
 
   /**
    * The set of elements that belong to one or both sets

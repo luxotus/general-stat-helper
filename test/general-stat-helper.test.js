@@ -82,4 +82,15 @@ describe('generalStatHelper', function() {
       assert.equal(Math.round(100 * generalStatHelper.sigma(arr))/100, knownSigma);
     });
   });
+  describe('intersection', function() {
+    const sets_1 = [[1,2,3], [1,5,3,4], [87, 3, 99, 22, 1, 55]];
+    it(`Known intersection ${[1,3]}`, function() {
+      assert.deepEqual(generalStatHelper.intersection(sets_1), [1,3]);
+    });
+
+    const sets_2 = [[9, 7, 4], [5, 3, 1]];
+    it(`No Intersections in [${sets_2[0].join(', ')}] and [${sets_2[1].join(', ')}]`, function() {
+      assert.deepEqual(generalStatHelper.intersection(sets_2), []);
+    });
+  });
 });
