@@ -59,7 +59,12 @@ const generalStatHelper = {
    * The average of the squared differences from the Mean.
    * @param {[int]} arr array of numbers
    */
-  variance: (arr) => {},
+  variance: (arr) => {
+    const mean = generalStatHelper.mean(arr);
+    const sqDiff = arr.map(x => (x - mean) ** 2); // squared differences
+
+    return generalStatHelper.mean(sqDiff);
+  },
 
   /**
    * The Standard Deviation

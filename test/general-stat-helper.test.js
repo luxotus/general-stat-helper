@@ -68,4 +68,11 @@ describe('generalStatHelper', function() {
       assert.equal(generalStatHelper.mean(arr), knownMean);
     });
   });
+  describe('variance', function() {
+    const arr = [600, 470, 170, 430, 300];
+    const knownvariance = 21704;
+    it(`[${arr.join(', ')}] has a variance of ${knownvariance}`, function() {
+      assert.equal(generalStatHelper.variance(arr), knownvariance);
+    });
+  });
 });
