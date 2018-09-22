@@ -93,4 +93,10 @@ describe('generalStatHelper', function() {
       assert.deepEqual(generalStatHelper.intersection(sets_2), []);
     });
   });
+  describe('union', function() {
+    const sets = [[1,2,3], [1,4,3,5]];
+    it(`The union of [${sets[0].join(', ')}] and [${sets[1].join(', ')}] is [1,2,3,4,5]`, function() {
+      assert.deepEqual(generalStatHelper.union(sets), [1,2,3,4,5]);
+    });
+  });
 });

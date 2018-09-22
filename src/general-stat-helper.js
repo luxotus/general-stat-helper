@@ -96,7 +96,12 @@ const generalStatHelper = {
    * The set of elements that belong to one or both sets
    * @param {[[int], [int]...]} sets array of all the sets you want to get the union of
    */
-  union: (s) => {},
+  union: (s) => {
+    const allValues = [];
+    s.forEach(arr => allValues.push(...arr));
+
+    return allValues.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
+  },
 
 };
 
