@@ -2,15 +2,17 @@ import assert from 'assert';
 import randomGenerator from '../src/random-generator';
 
 describe('Random Generator', function() {
-  const numOfRolls = [100, 60, 37];
+  const numOfRolls = [
+    Math.floor(Math.random() * 100) + 1,
+    Math.floor(Math.random() * 100) + 1,
+    Math.floor(Math.random() * 100) + 1
+  ];
   const sides = [1, 2, 3, 4, 5, 6];
   const randomGen = [
     new randomGenerator(sides, numOfRolls[0]),
     new randomGenerator(sides, numOfRolls[1]),
     new randomGenerator(sides, numOfRolls[2]),
   ];
-
-  // console.log(randomGen);
 
   describe('Shuffled Array has the same specified size', function() {
     it(`Rolling dice ${numOfRolls[0]} times`, function() {

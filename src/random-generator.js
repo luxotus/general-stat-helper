@@ -10,11 +10,9 @@ export default class randomGenerator {
     this.seq = seq;
     this.discreteEvents = discreteEvents;
     const size = Math.floor(discreteEvents / seq.length);
-    // let isOdd = (discreteEvents / seq.length) % 2 !== 0;s
     let differenceToMax = Math.abs(discreteEvents - size * seq.length);
     let increment = 0;
 
-    console.log(`differenceToMax: ${differenceToMax}`);
 
     this.possibleSets = this.seq.map((val) => {
       if (differenceToMax > 0) {
