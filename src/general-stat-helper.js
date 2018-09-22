@@ -67,10 +67,10 @@ const generalStatHelper = {
   },
 
   /**
-   * The Standard Deviation
-   * @param {[int]} v variance
+   * The Standard Deviation of a set
+   * @param {[int]} arr array of numbers
    */
-  sigma: (v) => {},
+  sigma: arr => Math.sqrt(generalStatHelper.variance(arr)),
 
   /**
    * The set of elements that belong to all sets

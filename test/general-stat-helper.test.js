@@ -70,9 +70,16 @@ describe('generalStatHelper', function() {
   });
   describe('variance', function() {
     const arr = [600, 470, 170, 430, 300];
-    const knownvariance = 21704;
-    it(`[${arr.join(', ')}] has a variance of ${knownvariance}`, function() {
-      assert.equal(generalStatHelper.variance(arr), knownvariance);
+    const knownVariance = 21704;
+    it(`[${arr.join(', ')}] has a variance of ${knownVariance}`, function() {
+      assert.equal(generalStatHelper.variance(arr), knownVariance);
+    });
+  });
+  describe('Standard Deviation', function() {
+    const arr = [600, 470, 170, 430, 300];
+    const knownSigma = 147.32;
+    it(`[${arr.join(', ')}] has a Standard Deviation of ${knownSigma}`, function() {
+      assert.equal(Math.round(100 * generalStatHelper.sigma(arr))/100, knownSigma);
     });
   });
 });
