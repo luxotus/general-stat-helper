@@ -110,6 +110,11 @@ const generalStatHelper = {
    */
   slope: (a, b) => (b[1] - a[1]) / (b[0] - a[0]),
 
+  /**
+   * Intercept of a line
+   */
+  intercept: (coordinate, m) => coordinate[1] - m * coordinate[0],
+
 };
 
 export default generalStatHelper;

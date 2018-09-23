@@ -105,4 +105,11 @@ describe('generalStatHelper', function() {
       assert.equal(generalStatHelper.slope(coordinates[0], coordinates[1]), 0.2);
     });
   });
+  describe('intercept', function() {
+    const coordinate = [40, 25];
+    const slope = 0.5;
+    it(`The intercept of [${coordinate.join(', ')}] and a slope of ${slope} is 5`, function() {
+      assert.equal(generalStatHelper.intercept(coordinate, slope), 5);
+    });
+  });
 });
