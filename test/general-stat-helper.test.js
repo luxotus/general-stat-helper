@@ -99,4 +99,10 @@ describe('generalStatHelper', function() {
       assert.deepEqual(generalStatHelper.union(sets), [1,2,3,4,5]);
     });
   });
+  describe('slope', function() {
+    const coordinates = [[10, 7], [15, 8]];
+    it(`The slope of [${coordinates[0].join(', ')}] and [${coordinates[1].join(', ')}] is 0.2`, function() {
+      assert.equal(generalStatHelper.slope(coordinates[0], coordinates[1]), 0.2);
+    });
+  });
 });

@@ -103,6 +103,13 @@ const generalStatHelper = {
     return allValues.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
   },
 
+  /**
+   * Slope of a line
+   * @param {[int, int]} a first coordinate
+   * @param {[int, int]} b second coordinate
+   */
+  slope: (a, b) => (b[1] - a[1]) / (b[0] - a[0]),
+
 };
 
 export default generalStatHelper;
