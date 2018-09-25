@@ -38,13 +38,13 @@ const generalStatHelper = {
   },
 
   /**
-   * Get the number possible combinations from a group within a set
+   * The number of ways of picking k unordered outcomes from n possibilities
    * @param {int} n number of permutations
-   * @param {int} r number of objects
+   * @param {int} k number of objects
    */
-  combination: (n, r) => {
+  binomialCoefficient: (n, k) => {
     const nPr = generalStatHelper.factorial(n);
-    const denominator = generalStatHelper.factorial(r) * generalStatHelper.factorial(n - r);
+    const denominator = generalStatHelper.factorial(k) * generalStatHelper.factorial(n - k);
 
     return nPr / denominator;
   },
@@ -114,6 +114,21 @@ const generalStatHelper = {
    * Intercept of a line
    */
   intercept: (coordinate, m) => coordinate[1] - m * coordinate[0],
+
+  /**
+   * a random experiment with exactly two possible outcomes, "success" and "failure",
+   * in which the probability of success is the same every time the experiment is conducted.
+   * @param {int} n number of trials
+   * @param {int} k number of successes
+   * @param {int} c number of choices
+   */
+  bernoulliTrials: (n, k, c) => {
+    const failures = n - k;
+    const p = 1 / c; // probability of success in one trial
+    const q = 1 - p; // probability of failure in one trial
+
+    return generalStatHelper.binomialCoefficient(n, k) * (p ** k) * (q ** failures);
+  },
 
 };
 

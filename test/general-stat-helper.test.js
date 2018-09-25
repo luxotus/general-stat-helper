@@ -38,13 +38,13 @@ describe('Test helper functions', function() {
   });
 });
 
-describe('generalStatHelper', function() {
+describe('General Stat Helper', function() {
   describe('factorial', function() {
     it('4! = 24', function() {
       assert.equal(generalStatHelper.factorial(4), 24);
     });
   });
-  describe('permutations', function() {
+  describe('Permutations', function() {
     const arr = ['a', 'b', 'c'];
     const factorial = generalStatHelper.factorial(arr.length);
 
@@ -56,19 +56,19 @@ describe('generalStatHelper', function() {
       assert.equal(checkForNestedDuplicates(generalStatHelper.permutations(arr)), false);
     });
   });
-  describe('combination', function() {
-    it('4 chosen from group of 15 has 1365 possible combinations', function() {
-      assert.equal(generalStatHelper.combination(15, 4), 1365);
+  describe('Binomial Coefficient', function() {
+    it('4 chosen from group of 15 has a binomial coefficient of 1,365', function() {
+      assert.equal(generalStatHelper.binomialCoefficient(15, 4), 1365);
     });
   });
-  describe('mean', function() {
+  describe('Mean', function() {
     const arr = [600, 470, 170, 430, 300];
     const knownMean = 394;
     it(`[${arr.join(', ')}] has a mean of ${knownMean}`, function() {
       assert.equal(generalStatHelper.mean(arr), knownMean);
     });
   });
-  describe('variance', function() {
+  describe('Variance', function() {
     const arr = [600, 470, 170, 430, 300];
     const knownVariance = 21704;
     it(`[${arr.join(', ')}] has a variance of ${knownVariance}`, function() {
@@ -82,7 +82,7 @@ describe('generalStatHelper', function() {
       assert.equal(Math.round(100 * generalStatHelper.sigma(arr))/100, knownSigma);
     });
   });
-  describe('intersection', function() {
+  describe('Intersection', function() {
     const sets_1 = [[1,2,3], [1,5,3,4], [87, 3, 99, 22, 1, 55]];
     it(`Known intersection ${[1,3]}`, function() {
       assert.deepEqual(generalStatHelper.intersection(sets_1), [1,3]);
@@ -93,23 +93,35 @@ describe('generalStatHelper', function() {
       assert.deepEqual(generalStatHelper.intersection(sets_2), []);
     });
   });
-  describe('union', function() {
+  describe('Union', function() {
     const sets = [[1,2,3], [1,4,3,5]];
     it(`The union of [${sets[0].join(', ')}] and [${sets[1].join(', ')}] is [1,2,3,4,5]`, function() {
       assert.deepEqual(generalStatHelper.union(sets), [1,2,3,4,5]);
     });
   });
-  describe('slope', function() {
+  describe('Slope', function() {
     const coordinates = [[10, 7], [15, 8]];
     it(`The slope of [${coordinates[0].join(', ')}] and [${coordinates[1].join(', ')}] is 0.2`, function() {
       assert.equal(generalStatHelper.slope(coordinates[0], coordinates[1]), 0.2);
     });
   });
-  describe('intercept', function() {
+  describe('Intercept', function() {
     const coordinate = [40, 25];
     const slope = 0.5;
     it(`The intercept of [${coordinate.join(', ')}] and a slope of ${slope} is 5`, function() {
       assert.equal(generalStatHelper.intercept(coordinate, slope), 5);
+    });
+  });
+  describe('Bernoulli Trials', function() {
+    const bt = {
+      n: 10,
+      k: 7,
+      c: 4,
+      probability: 0.0031,
+    };
+
+    it(`In a ${bt.n} question multiple choice test, with ${bt.c} choices per question. You have a probability of ${bt.probability} for getting ${bt.k} questions correct.`, function() {
+      assert.equal(Math.round(10000 * generalStatHelper.bernoulliTrials(bt.n, bt.k, bt.c))/10000, bt.probability);
     });
   });
 });
