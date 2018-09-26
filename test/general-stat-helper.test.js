@@ -124,4 +124,12 @@ describe('General Stat Helper', function() {
       assert.equal(Math.round(10000 * generalStatHelper.bernoulliTrials(bt.n, bt.k, bt.c))/10000, bt.probability);
     });
   });
+  describe('Least Square Method', function() {
+    const coordinates = [[8, 3], [2, 10], [11, 3], [6, 6], [5, 8], [4, 12], [12, 1], [9, 4], [6, 9], [1, 14]];
+    const slope = -1.1;
+    const yIntercept = 14.0;
+    it(`The line of best fit: y = ${slope}x + ${yIntercept}`, function() {
+      assert.deepEqual(generalStatHelper.leastSquare(coordinates), {slope: slope, yIntercept: yIntercept});
+    });
+  });
 });

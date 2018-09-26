@@ -130,6 +130,41 @@ const generalStatHelper = {
     return generalStatHelper.binomialCoefficient(n, k) * (p ** k) * (q ** failures);
   },
 
+  /**
+   * Least Square Method to calculate the line of best fit
+   * @param {[[int, int]]} coordinates array of (x, y)
+   */
+  leastSquare: (coordinates) => {
+    const sum = {
+      top: 0,
+      bottom: 0,
+    };
+    const bar = {
+      x: 0,
+      y: 0,
+    };
+    let slope = 0;
+    let yIntercept = 0;
+
+    coordinates.forEach((points) => {
+      bar.x += points[0];
+      bar.y += points[1];
+    });
+
+    bar.x /= coordinates.length;
+    bar.y /= coordinates.length;
+
+    coordinates.forEach((points) => {
+      sum.top += (points[0] - bar.x) * (points[1] - bar.y);
+      sum.bottom += (points[0] - bar.x) ** 2;
+    });
+
+    slope = Math.round(10 * (sum.top / sum.bottom)) / 10;
+    yIntercept = Math.round(10 * (bar.y - (slope * bar.x))) / 10;
+
+    return { slope, yIntercept };
+  },
+
 };
 
 export default generalStatHelper;
