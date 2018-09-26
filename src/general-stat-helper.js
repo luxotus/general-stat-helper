@@ -161,6 +161,28 @@ const generalStatHelper = {
     return { slope, yIntercept };
   },
 
+  /**
+   * Covariance indicates how two variables are related.
+   * @param {[[int, int]]} coordinates array of (x, y)
+   */
+  covariance: (coordinates) => {
+    const c = {
+      x: coordinates.map(el => el[0]),
+      y: coordinates.map(el => el[1]),
+    };
+    const bar = {
+      x: generalStatHelper.mean(c.x),
+      y: generalStatHelper.mean(c.y),
+    };
+    let sum = 0;
+
+    coordinates.forEach((points) => {
+      sum += (points[0] - bar.x) * (points[1] - bar.y);
+    });
+
+    return sum / (coordinates.length - 1);
+  },
+
 };
 
 export default generalStatHelper;

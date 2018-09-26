@@ -132,4 +132,11 @@ describe('General Stat Helper', function() {
       assert.deepEqual(generalStatHelper.leastSquare(coordinates), {slope: slope, yIntercept: yIntercept});
     });
   });
+  describe('Covariance', function() {
+    const coordinates = [[2.1, 8], [2.5, 12], [4, 14], [3.6, 10]];
+    const covariance = 1.53;
+    it(`Covariance: ${covariance}`, function() {
+      assert.equal(Math.round(100 * generalStatHelper.covariance(coordinates))/100, covariance);
+    });
+  });
 });
