@@ -139,20 +139,16 @@ const generalStatHelper = {
       top: 0,
       bottom: 0,
     };
+    const c = {
+      x: coordinates.map(el => el[0]),
+      y: coordinates.map(el => el[1]),
+    };
     const bar = {
-      x: 0,
-      y: 0,
+      x: generalStatHelper.mean(c.x),
+      y: generalStatHelper.mean(c.y),
     };
     let slope = 0;
     let yIntercept = 0;
-
-    coordinates.forEach((points) => {
-      bar.x += points[0];
-      bar.y += points[1];
-    });
-
-    bar.x /= coordinates.length;
-    bar.y /= coordinates.length;
 
     coordinates.forEach((points) => {
       sum.top += (points[0] - bar.x) * (points[1] - bar.y);
