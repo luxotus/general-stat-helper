@@ -79,7 +79,7 @@ describe('General Stat Helper', function() {
     const arr = [600, 470, 170, 430, 300];
     const knownSigma = 147.32;
     it(`[${arr.join(', ')}] has a Standard Deviation of ${knownSigma}`, function() {
-      assert.equal(Math.round(100 * generalStatHelper.sigma(arr))/100, knownSigma);
+      assert.equal(Math.round(100 * generalStatHelper.sigma(arr, false))/100, knownSigma);
     });
   });
   describe('Intersection', function() {

@@ -77,8 +77,9 @@ const generalStatHelper = {
   /**
    * The Standard Deviation of a set
    * @param {[int]} arr array of numbers
+   * @param {boolean} isSample determines if data is a population or just a sample
    */
-  sigma: arr => Math.sqrt(generalStatHelper.variance(arr)),
+  sigma: (arr, isSample) => Math.sqrt(generalStatHelper.variance(arr, isSample)),
 
   /**
    * The set of elements that belong to all sets
