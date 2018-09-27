@@ -58,12 +58,20 @@ const generalStatHelper = {
   /**
    * The average of the squared differences from the Mean.
    * @param {[int]} arr array of numbers
+   * @param {boolean} isSample determines if data is a population or just a sample
    */
-  variance: (arr) => {
+  variance: (arr, isSample) => {
     const mean = generalStatHelper.mean(arr);
     const sqDiff = arr.map(x => (x - mean) ** 2); // squared differences
+    let v = 0;
 
-    return generalStatHelper.mean(sqDiff);
+    if (isSample) {
+      v = sqDiff.reduce((p, c) => p + c) / sqDiff.length - 1;
+    } else {
+      v = generalStatHelper.mean(sqDiff);
+    }
+
+    return v;
   },
 
   /**

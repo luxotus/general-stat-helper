@@ -72,7 +72,7 @@ describe('General Stat Helper', function() {
     const arr = [600, 470, 170, 430, 300];
     const knownVariance = 21704;
     it(`[${arr.join(', ')}] has a variance of ${knownVariance}`, function() {
-      assert.equal(generalStatHelper.variance(arr), knownVariance);
+      assert.equal(generalStatHelper.variance(arr, false), knownVariance);
     });
   });
   describe('Standard Deviation', function() {
