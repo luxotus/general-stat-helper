@@ -139,4 +139,11 @@ describe('General Stat Helper', function() {
       assert.equal(Math.round(100 * generalStatHelper.covariance(coordinates))/100, covariance);
     });
   });
+  describe('Correlation', function() {
+    const coordinates = [[2.1, 8], [2.5, 12], [4, 14], [3.6, 10]];
+    const correlation = 0.66;
+    it(`Correlation: ${correlation}`, function() {
+      assert.equal(Math.round(100 * generalStatHelper.correlation(coordinates))/100, correlation);
+    });
+  });
 });

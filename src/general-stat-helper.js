@@ -66,7 +66,7 @@ const generalStatHelper = {
     let v = 0;
 
     if (isSample) {
-      v = sqDiff.reduce((p, c) => p + c) / sqDiff.length - 1;
+      v = sqDiff.reduce((p, c) => p + c) / (sqDiff.length - 1);
     } else {
       v = generalStatHelper.mean(sqDiff);
     }
@@ -190,6 +190,24 @@ const generalStatHelper = {
     });
 
     return sum / (coordinates.length - 1);
+  },
+
+  /**
+   * Determines how two variables are related
+   * @param {[[int, int]]} coordinates array of (x, y)
+   */
+  correlation: (coordinates) => {
+    const c = {
+      x: coordinates.map(el => el[0]),
+      y: coordinates.map(el => el[1]),
+    };
+    const cov = generalStatHelper.covariance(coordinates);
+    const sigma = {
+      x: generalStatHelper.sigma(c.x, true),
+      y: generalStatHelper.sigma(c.y, true),
+    };
+
+    return cov / (sigma.x * sigma.y);
   },
 
 };
