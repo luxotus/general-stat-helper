@@ -146,4 +146,11 @@ describe('General Stat Helper', function() {
       assert.equal(Math.round(100 * generalStatHelper.correlation(coordinates))/100, correlation);
     });
   });
+  describe('Euclidean Distance', function() {
+    const coordinates = [[158, 58], [161, 61]];
+    const distance = 4.2;
+    it(`Distance: ${distance}`, function() {
+      assert.equal(Math.round(10 * generalStatHelper.euclideanDistance(coordinates))/10, distance);
+    });
+  });
 });

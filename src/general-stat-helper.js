@@ -210,6 +210,13 @@ const generalStatHelper = {
     return cov / (sigma.x * sigma.y);
   },
 
+  /**
+   * Distance between two points
+   * @param {[[int, int]]} coordinates array of (x, y)
+   */
+  euclideanDistance: coordinates => Math.sqrt(((coordinates[1][0] - coordinates[0][0]) ** 2)
+    + ((coordinates[1][1] - coordinates[0][1]) ** 2)),
+
 };
 
 export default generalStatHelper;
