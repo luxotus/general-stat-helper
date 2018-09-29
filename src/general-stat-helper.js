@@ -219,30 +219,30 @@ const generalStatHelper = {
 
   /**
    * K-Nearest Neighbor: a non-parametric supervised learning technique for classifying data
-   * Feature = input
-   * Label = output
-   * nN = Nearest Neighbors
-   * @param {{features: [[int, int]], labels: [string]}} trainData array of (x, y) features
-   * @param {[[int, int]]} testData Optional. Array of (x, y) features
+   * Feature = input, Label = output, nN = Nearest Neighbors
+   * @param {{features: [[int, int]], labels: [string]}} trainData
+   * @param {{features: [[int, int]], labels: [string]}} testData Optional. Array of (x, y) features
    * @param {int} k Number of closest training examples in the feature space
    * @param {float} testPercent Required if no testData given. Split data for training and testing
    * @returns {[{predictedLabel: string, confidence: float}]} For each test data point
    */
   kNN: (trainData, testData, k, testPercent) => {
-    const data = {};
     const distance = [];
     const indexesOfKs = [];
     const results = [];
+    let data = {};
 
     if (testData === null || typeof testData === 'undefined') {
-      // split training data
+      data = generalStatHelper.splitDataForTrainingAndTesting(trainData, testPercent);
     } else {
-      data.train = trainData;
-      data.test = testData;
+      data = {
+        train: trainData,
+        test: testData,
+      };
     }
 
     // distances for each test data point against all training data points
-    data.test.forEach((testPair) => {
+    data.test.features.forEach((testPair) => {
       const tempArr = [];
 
       data.train.features.forEach((trainPair) => {
@@ -278,14 +278,10 @@ const generalStatHelper = {
     });
 
     // Preparing results on predictions
-    data.test.forEach((val, index) => {
+    data.test.features.forEach((val, index) => {
       const testResult = {};
-
-      // labels of the Nearest Neighbors
       const labelsOfNN = indexesOfKs[index].map(i => data.train.labels[i]);
-
-      // Unique values
-      const unique = labelsOfNN.filter((item, i, ar) => ar.indexOf(item) === i);
+      const uniqueLabels = labelsOfNN.filter((item, i, ar) => ar.indexOf(item) === i);
 
       // Label occurrences
       const oc = labelsOfNN.reduce((prev, curr) => {
@@ -300,21 +296,32 @@ const generalStatHelper = {
         return temp;
       }, {});
 
-      // Predicted Label
-      if (unique.length >= 2) {
+      if (uniqueLabels.length >= 2) {
         testResult.predictedLabel = Object.keys(oc).reduce((a, b) => (oc[a] > oc[b] ? a : b));
       } else {
-        [testResult.predictedLabel] = unique;
+        [testResult.predictedLabel] = uniqueLabels;
       }
 
-      // Confidence
       testResult.confidence = oc[testResult.predictedLabel] / k;
-
       results.push(testResult);
     });
 
     return results;
   },
+
+  /**
+   * Split data into training and test sets
+   * @param {features: [[int, int]], labels: [string]} data
+   * @param {float} testPercent Percentage of test data vs training data
+   * @returns {{test: {data}, train: {data}}}
+   */
+  splitDataForTrainingAndTesting: (data, testPercent) => {},
+
+  /**
+   * Get the number of occurrences for each label
+   * @param {[string]} arr array of labels
+   */
+  occurrences: (arr) => {},
 
 };
 

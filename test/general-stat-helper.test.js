@@ -155,7 +155,7 @@ describe('General Stat Helper', function() {
   });
   describe('K-Nearest Neighbor', function() {
     const k = 5;
-    const testData = [[161, 61]];
+    const testData = {features: [[161, 61]]};
     const predictedLabel = 'M';
     const confidence = 0.8;
     const trainData = {
