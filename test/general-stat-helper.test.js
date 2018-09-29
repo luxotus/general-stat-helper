@@ -153,4 +153,41 @@ describe('General Stat Helper', function() {
       assert.equal(Math.round(10 * generalStatHelper.euclideanDistance(coordinates))/10, distance);
     });
   });
+  describe('K-Nearest Neighbor', function() {
+    const k = 5;
+    const testData = [[161, 61]];
+    const predictedLabel = 'M';
+    const confidence = 0.8;
+    const trainData = {
+      features: [
+        [158,	58],
+        [158,	59],
+        [158,	63],
+        [160,	59],
+        [160,	60],
+        [163,	60],
+        [163,	61],
+        [160,	64],
+        [163,	64],
+        [165,	61],
+        [165,	62],
+        [165,	65],
+        [168,	62],
+        [168,	63],
+        [168,	66],
+        [170,	63],
+        [170,	64],
+        [170,	68],
+      ],
+      labels: ['M', 'M', 'M', 'M', 'M', 'M', 'M', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L'],
+    };
+
+    it(`Predicted Label: ${predictedLabel}`, function() {
+      assert.equal(generalStatHelper.kNN(trainData, testData, k)[0].predictedLabel, predictedLabel);
+    });
+
+    it(`Predicted Label: ${confidence}`, function() {
+      assert.equal(generalStatHelper.kNN(trainData, testData, k)[0].confidence, confidence);
+    });
+  });
 });

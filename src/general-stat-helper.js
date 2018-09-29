@@ -217,6 +217,105 @@ const generalStatHelper = {
   euclideanDistance: coordinates => Math.sqrt(((coordinates[1][0] - coordinates[0][0]) ** 2)
     + ((coordinates[1][1] - coordinates[0][1]) ** 2)),
 
+  /**
+   * K-Nearest Neighbor: a non-parametric supervised learning technique for classifying data
+   * Feature = input
+   * Label = output
+   * nN = Nearest Neighbors
+   * @param {{features: [[int, int]], labels: [string]}} trainData array of (x, y) features
+   * @param {[[int, int]]} testData Optional. Array of (x, y) features
+   * @param {int} k Number of closest training examples in the feature space
+   * @param {float} testPercent Required if no testData given. Split data for training and testing
+   * @returns {[{predictedLabel: string, confidence: float}]} For each test data point
+   */
+  kNN: (trainData, testData, k, testPercent) => {
+    const data = {};
+    const distance = [];
+    const indexesOfKs = [];
+    const results = [];
+
+    if (testData === null || typeof testData === 'undefined') {
+      // split training data
+    } else {
+      data.train = trainData;
+      data.test = testData;
+    }
+
+    // distances for each test data point against all training data points
+    data.test.forEach((testPair) => {
+      const tempArr = [];
+
+      data.train.features.forEach((trainPair) => {
+        tempArr.push(generalStatHelper.euclideanDistance([testPair, trainPair]));
+      });
+
+      distance.push(tempArr);
+    });
+
+    // Storing the positions of the closest training data for each test data
+    distance.forEach((el) => {
+      const tempArr = [];
+
+      // K determines the number of closest training data
+      for (let index = 0; index < k; index += 1) {
+        // min = closest training data to the current test data
+        const indexOfMinValue = el.reduce((iMin, x, i, arr) => {
+          let currentMinIndex = 0;
+
+          if (x < arr[iMin] && !tempArr.includes(i)) {
+            currentMinIndex = i;
+          } else {
+            currentMinIndex = iMin;
+          }
+
+          return currentMinIndex;
+        }, 0);
+
+        tempArr.push(indexOfMinValue);
+      }
+
+      indexesOfKs.push(tempArr);
+    });
+
+    // Preparing results on predictions
+    data.test.forEach((val, index) => {
+      const testResult = {};
+
+      // labels of the Nearest Neighbors
+      const labelsOfNN = indexesOfKs[index].map(i => data.train.labels[i]);
+
+      // Unique values
+      const unique = labelsOfNN.filter((item, i, ar) => ar.indexOf(item) === i);
+
+      // Label occurrences
+      const oc = labelsOfNN.reduce((prev, curr) => {
+        const temp = prev;
+
+        if (temp[curr] === null || typeof temp[curr] === 'undefined') {
+          temp[curr] = 1;
+        } else {
+          temp[curr] += 1;
+        }
+
+        return temp;
+      }, {});
+
+      // Predicted Label
+      if (unique.length >= 2) {
+        testResult.predictedLabel = Object.keys(oc).reduce((a, b) => (oc[a] > oc[b] ? a : b));
+      } else {
+        [testResult.predictedLabel] = unique;
+      }
+
+      // Confidence
+      testResult.confidence = oc[testResult.predictedLabel] / k;
+
+      results.push(testResult);
+    });
+
+    return results;
+  },
+
 };
 
 export default generalStatHelper;
