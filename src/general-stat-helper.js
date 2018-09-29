@@ -2,6 +2,7 @@ const generalStatHelper = {
   /**
    * the product of an integer and all the integers below it
    * @param {int} num
+   * @returns {int}
    */
   factorial: (num) => {
     if (num < 0) {
@@ -18,6 +19,7 @@ const generalStatHelper = {
   /**
    * Provides all permutations of a set
    * @param {array} arr
+   * @returns {array}
    */
   permutations: (arr) => {
     const result = [];
@@ -41,6 +43,7 @@ const generalStatHelper = {
    * The number of ways of picking k unordered outcomes from n possibilities
    * @param {int} n number of permutations
    * @param {int} k number of objects
+   * @returns {float}
    */
   binomialCoefficient: (n, k) => {
     const nPr = generalStatHelper.factorial(n);
@@ -52,6 +55,7 @@ const generalStatHelper = {
   /**
    * Calculate the average from an array of numbers
    * @param {[int]} arr array of numbers
+   * @returns {float}
    */
   mean: arr => arr.reduce((p, c) => p + c) / arr.length,
 
@@ -59,6 +63,7 @@ const generalStatHelper = {
    * The average of the squared differences from the Mean.
    * @param {[int]} arr array of numbers
    * @param {boolean} isSample determines if data is a population or just a sample
+   * @returns {float}
    */
   variance: (arr, isSample) => {
     const mean = generalStatHelper.mean(arr);
@@ -78,12 +83,14 @@ const generalStatHelper = {
    * The Standard Deviation of a set
    * @param {[int]} arr array of numbers
    * @param {boolean} isSample determines if data is a population or just a sample
+   * @returns {float}
    */
   sigma: (arr, isSample) => Math.sqrt(generalStatHelper.variance(arr, isSample)),
 
   /**
    * The set of elements that belong to all sets
    * @param {[[int], [int]...]} s array of all the sets you want to get the intersection of
+   * @returns {[int]}
    */
   intersection: (s) => {
     let andSet = [];
@@ -104,6 +111,7 @@ const generalStatHelper = {
   /**
    * The set of elements that belong to one or both sets
    * @param {[[int], [int]...]} sets array of all the sets you want to get the union of
+   * @returns {[int]}
    */
   union: (s) => {
     const allValues = [];
@@ -116,11 +124,13 @@ const generalStatHelper = {
    * Slope of a line
    * @param {[int, int]} a first coordinate
    * @param {[int, int]} b second coordinate
+   * @returns {float}
    */
   slope: (a, b) => (b[1] - a[1]) / (b[0] - a[0]),
 
   /**
    * Intercept of a line
+   * @returns {float}
    */
   intercept: (coordinate, m) => coordinate[1] - m * coordinate[0],
 
@@ -130,6 +140,7 @@ const generalStatHelper = {
    * @param {int} n number of trials
    * @param {int} k number of successes
    * @param {int} c number of choices
+   * @returns {float}
    */
   bernoulliTrials: (n, k, c) => {
     const failures = n - k;
@@ -142,6 +153,7 @@ const generalStatHelper = {
   /**
    * Least Square Method to calculate the line of best fit
    * @param {[[int, int]]} coordinates array of (x, y)
+   * @returns {{slope: float, yIntercept: float}}
    */
   leastSquare: (coordinates) => {
     const sum = {
@@ -173,6 +185,7 @@ const generalStatHelper = {
   /**
    * Covariance indicates how two variables are related.
    * @param {[[int, int]]} coordinates array of (x, y)
+   * @returns {float}
    */
   covariance: (coordinates) => {
     const c = {
@@ -195,6 +208,7 @@ const generalStatHelper = {
   /**
    * Determines how two variables are related
    * @param {[[int, int]]} coordinates array of (x, y)
+   * @returns {float}
    */
   correlation: (coordinates) => {
     const c = {
