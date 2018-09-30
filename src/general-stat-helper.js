@@ -298,17 +298,7 @@ const generalStatHelper = {
       const uniqueLabels = labelsOfNN.filter((item, i, ar) => ar.indexOf(item) === i);
 
       // Label occurrences
-      const oc = labelsOfNN.reduce((prev, curr) => {
-        const temp = prev;
-
-        if (temp[curr] === null || typeof temp[curr] === 'undefined') {
-          temp[curr] = 1;
-        } else {
-          temp[curr] += 1;
-        }
-
-        return temp;
-      }, {});
+      const oc = generalStatHelper.occurrences(labelsOfNN);
 
       if (uniqueLabels.length >= 2) {
         testResult.predictedLabel = Object.keys(oc).reduce((a, b) => (oc[a] > oc[b] ? a : b));
@@ -335,7 +325,21 @@ const generalStatHelper = {
    * Get the number of occurrences for each label
    * @param {[string]} arr array of labels
    */
-  occurrences: (arr) => {},
+  occurrences: (arr) => {
+    const occurrences = arr.reduce((prev, curr) => {
+      const temp = prev;
+
+      if (temp[curr] === null || typeof temp[curr] === 'undefined') {
+        temp[curr] = 1;
+      } else {
+        temp[curr] += 1;
+      }
+
+      return temp;
+    }, {});
+
+    return occurrences;
+  },
 
 };
 

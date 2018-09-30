@@ -190,4 +190,11 @@ describe('General Stat Helper', function() {
       assert.equal(generalStatHelper.kNN(trainData, testData, k)[0].confidence, confidence);
     });
   });
+  describe('Occurrences', function() {
+    const labels = ['dog', 'dog', 'dog', 'cat', 'cat'];
+    const results = {dog: 3, cat: 2};
+    it(`Number of dogs: ${results.dog} & Number of cats: ${results.cat}`, function() {
+      assert.deepEqual(generalStatHelper.occurrences(labels), results);
+    });
+  });
 });
