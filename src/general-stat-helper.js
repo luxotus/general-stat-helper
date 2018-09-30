@@ -319,7 +319,36 @@ const generalStatHelper = {
    * @param {float} testPercent Percentage of test data vs training data
    * @returns {{test: {data}, train: {data}}}
    */
-  splitDataForTrainingAndTesting: (data, testPercent) => {},
+  splitData: (data, testPercent) => {
+    const numOfTestData = Math.round(data.features.length * testPercent);
+    const combineData = data.features.map((el, index) => el.concat(data.labels[index]));
+    const shuffleData = combineData.map(a => [Math.random(), a])
+      .sort((a, b) => a[0] - b[0]).map(a => a[1]);
+    const splitShuffleData = {
+      test: shuffleData.slice(0, numOfTestData),
+      train: shuffleData.slice(numOfTestData),
+    };
+    const results = {
+      test: {
+        features: [],
+        labels: [],
+      },
+      train: {
+        features: [],
+        labels: [],
+      },
+    };
+
+    // Split features and labels
+    Object.entries(splitShuffleData).forEach(([key, value]) => {
+      value.forEach((el) => {
+        results[key].features.push(el.slice(0, el.length - 1));
+        results[key].labels.push(el[el.length - 1]);
+      });
+    });
+
+    return results;
+  },
 
   /**
    * Get the number of occurrences for each label

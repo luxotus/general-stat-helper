@@ -197,4 +197,31 @@ describe('General Stat Helper', function() {
       assert.deepEqual(generalStatHelper.occurrences(labels), results);
     });
   });
+  describe('Split Data for training/testing', function() {
+    const trainData = {
+      features: [
+        [170,	68],
+        [45,	23],
+        [234,	78],
+        [87,	12],
+        [10,	34],
+      ],
+      labels: [
+        'M',
+        'M',
+        'M',
+        'L',
+        'L',
+      ],
+    };
+    const expected = {test: 1, train: 4};
+    const actual = generalStatHelper.splitData(trainData, 0.2);
+
+    it(`Test Length: ${actual.test.length}`, function() {
+      assert.equal(actual.test.features.length, expected.test);
+    });
+    it(`Train Length: ${actual.train.length}`, function() {
+      assert.equal(actual.train.features.length, expected.train);
+    });
+  });
 });
