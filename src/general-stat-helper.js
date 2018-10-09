@@ -377,6 +377,17 @@ const generalStatHelper = {
     return occurrences;
   },
 
+  /**
+   * Distance between two points in N-dimensions
+   * @param {[[int, int]]} coordinates array of (x, y)
+   */
+  betaCoefficient: (coordinates) => {
+    const cov = generalStatHelper.covariance(coordinates);
+    const variance = generalStatHelper.variance(coordinates.map(val => val[1]));
+
+    return cov / variance;
+  },
+
 };
 
 export default generalStatHelper;

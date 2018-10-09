@@ -231,4 +231,12 @@ describe('General Stat Helper', function() {
       assert.equal(actual.train.features.length, expected.train);
     });
   });
+  describe('Beta Coefficient', function() {
+    const coordinates = [[2.1, 8], [2.5, 12], [4, 14], [3.6, 10]];
+    const betaCoefficient = 0.31;
+    
+    it(`Beta: ${betaCoefficient}`, function() {
+      assert.equal(Math.round(100 * generalStatHelper.betaCoefficient(coordinates))/100, betaCoefficient);
+    });
+  });
 });
