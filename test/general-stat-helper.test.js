@@ -146,11 +146,18 @@ describe('General Stat Helper', function() {
       assert.equal(Math.round(100 * generalStatHelper.correlation(coordinates))/100, correlation);
     });
   });
-  describe('Euclidean Distance', function() {
+  describe('Euclidean Distance 2D', function() {
     const coordinates = [[158, 58], [161, 61]];
     const distance = 4.2;
     it(`Distance: ${distance}`, function() {
       assert.equal(Math.round(10 * generalStatHelper.euclideanDistance(coordinates))/10, distance);
+    });
+  });
+  describe('Euclidean Distance 3D', function() {
+    const coordinates = [[158, 58, 25], [161, 61, 43]];
+    const distance = 18.49;
+    it(`Distance: ${distance}`, function() {
+      assert.equal(Math.round(100 * generalStatHelper.euclideanDistance(coordinates))/100, distance);
     });
   });
   describe('K-Nearest Neighbor', function() {

@@ -225,11 +225,18 @@ const generalStatHelper = {
   },
 
   /**
-   * Distance between two points
-   * @param {[[int, int]]} coordinates array of (x, y)
+   * Distance between two points in N-dimensions
+   * @param {[[int, int], [int, int]]} coordinates array of (x, y)
    */
-  euclideanDistance: coordinates => Math.sqrt(((coordinates[1][0] - coordinates[0][0]) ** 2)
-    + ((coordinates[1][1] - coordinates[0][1]) ** 2)),
+  euclideanDistance: (coordinates) => {
+    let dist = 0;
+
+    coordinates[0].forEach((val, index) => {
+      dist += ((coordinates[1][index] - val) ** 2);
+    });
+
+    return Math.sqrt(dist);
+  },
 
   /**
    * K-Nearest Neighbor: a non-parametric supervised learning technique for classifying data
