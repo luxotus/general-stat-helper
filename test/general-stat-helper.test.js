@@ -231,12 +231,54 @@ describe('General Stat Helper', function() {
       assert.equal(actual.train.features.length, expected.train);
     });
   });
-  describe('Beta Coefficient', function() {
-    const coordinates = [[2.1, 8], [2.5, 12], [4, 14], [3.6, 10]];
-    const betaCoefficient = 0.31;
-    
-    it(`Beta: ${betaCoefficient}`, function() {
-      assert.equal(Math.round(100 * generalStatHelper.betaCoefficient(coordinates))/100, betaCoefficient);
-    });
+  describe('K-Means', function() {
+    const k = 2;
+    const coordinates = [
+      [2.1, 8],
+      [2.5, 12],
+      [4, 14],
+      [3.6, 10],
+      [5, 17],
+      [4.5, 15],
+      [33, 52],
+      [55, 22],
+      [37, 60],
+      [26, 50],
+      [44, 35],
+      [62, 10],
+    ];
+    const expectedKMean = [
+      {
+        k: [0, 1],
+        cluster: [
+          [2.1, 8],
+          [2.5, 12],
+          [4, 14],
+          [3.6, 10],
+          [5, 17],
+          [4.5, 15],
+        ],
+      },
+      {
+        k: [12.5, 13],
+        cluster: [
+          [33, 52],
+          [55, 22],
+          [37, 60],
+          [26, 50],
+          [44, 35],
+          [62, 10],
+        ],
+      },
+    ];
+    const actualKMean = generalStatHelper.kMean(coordinates, k);
+
+    // it(`k1: [${actualKMean[0].k.join(', ')}]`, function() {
+    //   assert.deepEqual(actualKMean[0].k, expectedKMean[0].k);
+    // });
+
+    // it(`k2: [${actualKMean[1].k.join(', ')}]`, function() {
+    //   assert.deepEqual(actualKMean[1].k, expectedKMean[1].k);
+    // });
   });
 });

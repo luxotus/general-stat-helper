@@ -378,7 +378,8 @@ const generalStatHelper = {
   },
 
   /**
-   * Distance between two points in N-dimensions
+   * Compares the strength of the effect of each individual independent variable
+   *  to the dependent variable
    * @param {[[int, int]]} coordinates array of (x, y)
    */
   betaCoefficient: (coordinates) => {
@@ -387,6 +388,13 @@ const generalStatHelper = {
 
     return cov / variance;
   },
+
+  /**
+   * Simple machine learning algorithm that is trained on a test data set
+   *  then able to classify a new data.
+   * @param {[[int, int]]} coordinates array of (x, y)
+   */
+  kMean: (coordinates, k) => {},
 
 };
 
