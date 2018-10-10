@@ -394,7 +394,61 @@ const generalStatHelper = {
    *  then able to classify a new data.
    * @param {[[int, int]]} coordinates array of (x, y)
    */
-  kMean: (coordinates, k) => {},
+  kMean: (coordinates, k) => {
+    const maxIterations = 100;
+    const results = {};
+    const ranges = {};
+    const centroids = [];
+    let lastMatches = [];
+
+    function getMax(a) {
+      return Math.max(...a.map(e => (Array.isArray(e) ? getMax(e) : e)));
+    }
+
+    function getMin(a) {
+      return Math.min(...a.map(e => (Array.isArray(e) ? getMin(e) : e)));
+    }
+
+    ranges.max = getMax(coordinates);
+    ranges.min = getMin(coordinates);
+
+    // Adding starting points
+    for (let index = 0; index < k; index += 1) {
+      centroids.push([
+        Math.floor(Math.random() * (ranges.max - ranges.min + 1) + ranges.min),
+        Math.floor(Math.random() * (ranges.max - ranges.min + 1) + ranges.min),
+      ]);
+    }
+
+    for (let i = 0; i < maxIterations; i += 1) {
+      const bestMatches = {};
+
+      // Find which centroid is closest for each row
+      for (let j = 0; j < coordinates.length; j += 1) {
+        const currentRow = coordinates[i];
+        let bestMatch = 0;
+
+        for (let t = 0; t < centroids.length; t += 1) {
+          const distance = generalStatHelper.euclideanDistance([centroids[t], currentRow]);
+
+          if (distance < generalStatHelper.euclideanDistance([centroids[bestMatch], currentRow])) {
+            bestMatch = t;
+          }
+
+          bestMatches[bestMatch].push(j);
+        }
+      }
+
+      // If the results are the same as last time, this is complete
+
+      // Move the centroids to the average of their members
+    }
+
+    console.log(ranges);
+    console.log(centroids);
+
+    return results;
+  },
 
 };
 
