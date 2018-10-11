@@ -396,10 +396,11 @@ const generalStatHelper = {
    */
   kMean: (coordinates, k) => {
     const maxIterations = 100;
-    const results = {};
+    const results = [];
     const ranges = {};
     const centroids = [];
-    let lastMatches = [];
+    let bestMatches = {};
+    let lastMatches = {};
 
     function getMax(a) {
       return Math.max(...a.map(e => (Array.isArray(e) ? getMax(e) : e)));
@@ -421,11 +422,12 @@ const generalStatHelper = {
     }
 
     for (let i = 0; i < maxIterations; i += 1) {
-      const bestMatches = {};
+      bestMatches = {};
+      let isSame = true;
 
       // Find which centroid is closest for each row
       for (let j = 0; j < coordinates.length; j += 1) {
-        const currentRow = coordinates[i];
+        const currentRow = coordinates[j];
         let bestMatch = 0;
 
         for (let t = 0; t < centroids.length; t += 1) {
@@ -434,18 +436,55 @@ const generalStatHelper = {
           if (distance < generalStatHelper.euclideanDistance([centroids[bestMatch], currentRow])) {
             bestMatch = t;
           }
-
-          bestMatches[bestMatch].push(j);
         }
+
+        if (typeof bestMatches[bestMatch] === 'undefined') {
+          bestMatches[bestMatch] = [];
+        }
+
+        bestMatches[bestMatch].push(j);
       }
 
+      // Check to see if bestMatches and lastMatches are the same
+      Object.entries(bestMatches).forEach(([key, value]) => {
+        if (Object.keys(lastMatches).length === 0 || typeof lastMatches[key] === 'undefined' || lastMatches[key] !== value) {
+          isSame = false;
+        }
+      });
+
       // If the results are the same as last time, this is complete
+      if (isSame) {
+        break;
+      }
+
+      lastMatches = bestMatches;
 
       // Move the centroids to the average of their members
+      for (let j = 0; j < centroids.length; j += 1) {
+        const avgs = Array(coordinates[0].length).fill(0);
+
+        if (typeof bestMatches[j] !== 'undefined' && bestMatches[j].length > 0) {
+          bestMatches[j].forEach((rowVal, rowId) => {
+            coordinates[rowId].forEach((val, key) => {
+              avgs[key] += val;
+            });
+            avgs.forEach((val, key) => {
+              avgs[key] /= bestMatches[j].length;
+            });
+          });
+        }
+
+        centroids[j] = avgs;
+      }
     }
 
-    console.log(ranges);
-    console.log(centroids);
+    // Building results
+    Object.entries(bestMatches).forEach(([key, val]) => {
+      results.push({
+        centroid: centroids[key],
+        cluster: val,
+      });
+    });
 
     return results;
   },

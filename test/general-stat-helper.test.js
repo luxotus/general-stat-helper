@@ -246,10 +246,28 @@ describe('General Stat Helper', function() {
       [26, 50],
       [44, 35],
       [62, 10],
+      [158,	58],
+      [158,	59],
+      [158,	63],
+      [160,	59],
+      [160,	60],
+      [163,	60],
+      [163,	61],
+      [160,	64],
+      [163,	64],
+      [165,	61],
+      [165,	62],
+      [165,	65],
+      [168,	62],
+      [168,	63],
+      [168,	66],
+      [170,	63],
+      [170,	64],
+      [170,	68],
     ];
     const expectedKMean = [
       {
-        k: [0, 1],
+        centroid: [0, 1],
         cluster: [
           [2.1, 8],
           [2.5, 12],
@@ -260,7 +278,7 @@ describe('General Stat Helper', function() {
         ],
       },
       {
-        k: [12.5, 13],
+        centroid: [12.5, 13],
         cluster: [
           [33, 52],
           [55, 22],
@@ -272,13 +290,15 @@ describe('General Stat Helper', function() {
       },
     ];
     const actualKMean = generalStatHelper.kMean(coordinates, k);
+    let actualClusterSize = 0;
+    console.log(actualKMean);
 
-    // it(`k1: [${actualKMean[0].k.join(', ')}]`, function() {
-    //   assert.deepEqual(actualKMean[0].k, expectedKMean[0].k);
-    // });
+    actualKMean.forEach(val => {
+      actualClusterSize += val.cluster.length;
+    });
 
-    // it(`k2: [${actualKMean[1].k.join(', ')}]`, function() {
-    //   assert.deepEqual(actualKMean[1].k, expectedKMean[1].k);
-    // });
+    it(`Whole Cluster Size: ${coordinates.length}`, function() {
+      assert.equal(actualClusterSize, coordinates.length);
+    });
   });
 });
